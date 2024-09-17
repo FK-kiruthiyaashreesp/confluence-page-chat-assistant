@@ -3,7 +3,6 @@ from langchain_community.llms import Ollama
 
 def explain_word(word, context):
     llm = Ollama(model="llama3")
-
     explanation_templates = [     
        f"""
         What is "{word}"
@@ -30,4 +29,5 @@ def explain_word(word, context):
     )
 
     explanation = llm_chain.run({"word": word, "context": context})
-    return explanation
+    print(context[1])
+    return explanation, context[1]

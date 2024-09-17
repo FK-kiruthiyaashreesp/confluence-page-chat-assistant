@@ -3,7 +3,6 @@ from langchain_community.llms import Ollama
 
 def summarize_text(text):
     llm = Ollama(model="llama3")
-
     summarization_template = """
     Summarize the following text:
 
@@ -22,4 +21,5 @@ def summarize_text(text):
     )
 
     summary = llm_chain.run(text)
-    return summary
+    print(text[1])
+    return summary, text[1]

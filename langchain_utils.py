@@ -1,8 +1,26 @@
-from langchain import PromptTemplate, LLMChain
-from langchain_community.llms import Ollama
+from langchain.chains.llm import LLMChain
+from langchain_core.prompts import PromptTemplate
+from langchain_community.llms.ollama import Ollama
+
+
+
+# Modify the retrieve_relevant_page function to include the URL in the response
+def retrieve_relevant_page(query, collection):
+    results = collection.query(
+        query_texts=[query],
+        n_results=1,
+    )
+    if results and results['documents']:
+        document = results['documents'][0]
+        # print("document", document)
+        metadata = results['metadatas'][0]
+        # print("metadata", metadata)
+        return document, metadata[0].get('url', '')
+    else:
+        return "", ""
 
 def classify_query(prompt):
-    llm = Ollama(model="llama3")
+    llm = Ollama(model="llama3.1")
 
     classification_template = """
     Classify the user's query into one of the following categories:

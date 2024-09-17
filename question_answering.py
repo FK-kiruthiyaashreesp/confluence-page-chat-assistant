@@ -4,7 +4,6 @@ from langchain_community.llms import Ollama
 
 def answer_question(question, context):
     llm = Ollama(model="llama3")
-
     qa_templates = [
         """
         Given the following context:
@@ -61,4 +60,5 @@ def answer_question(question, context):
     )
 
     answer = llm_chain.run({"context": context, "question": question})
-    return answer
+    print(context[1])
+    return answer, context[1]
